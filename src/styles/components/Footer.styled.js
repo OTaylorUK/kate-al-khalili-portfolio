@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Flex, FlexItem, linkStyling, btnStyling } from '../helpers/Mixins';
+import { Flex, FlexItem, btnStyling } from '../helpers/Mixins';
 import { mediaQuery } from '../helpers/MediaQuery';
 import { Pulsate } from "../helpers/Animations";
 

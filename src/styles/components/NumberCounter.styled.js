@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Flex, FlexItem } from '../helpers/Mixins';
+import { Flex } from '../helpers/Mixins';
 
 export const StyledNumberCounter = styled.div`
 	padding-left: 5vw;

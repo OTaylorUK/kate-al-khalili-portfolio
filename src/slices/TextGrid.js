@@ -4,7 +4,7 @@ import { PrismicRichText } from '@prismicio/react'
 import { StyledTextGrid } from "../styles/slices/TextGrid.styled"
 import { SectionContent } from '../components/SectionContent'
 import {useState } from 'react';
-import SVG from 'react-inlinesvg';
+import Svg from 'react-inlinesvg';
 
 
 export const TextGrid = ({slice, context, index }) => {
@@ -133,13 +133,13 @@ export const TextGrid = ({slice, context, index }) => {
 
         <button className='mobile-navigation' onClick={() => changeGridItem()}>
           See more skills
-         <SVG className="icon" no-cors="true" src={iconSVG} width="16px" height="16px" title="Menu" />
+         <Svg className="icon" no-cors="true" src={iconSVG} width="16px" height="16px" title="Menu" />
         </button>
         
 
         <button className='section-btn-toggle lhs' onClick={() => toggleActive({ type: 'hide' })}>
           Go Back
-         <SVG className="icon" no-cors="true" src={iconSVG} width="16px" height="16px" title="Menu" />
+         <Svg className="icon" no-cors="true" src={iconSVG} width="16px" height="16px" title="Menu" />
 
         </button>
 

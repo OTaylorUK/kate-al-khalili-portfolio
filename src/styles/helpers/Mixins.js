@@ -30,7 +30,7 @@ transition: opacity 250ms;
 	}
 `;
 
-export const btnActive = ({}) => css`
+export const btnActive = () => css`
 opacity: 1;
 transition: opacity 250ms;
 

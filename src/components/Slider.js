@@ -1,7 +1,7 @@
 import * as React from 'react'
 // import { useState } from 'react';
 import { NumberCounter } from "./NumberCounter";
-import SVG from 'react-inlinesvg';
+import Svg from 'react-inlinesvg';
 
 export const Slider = ({ position, context, icon}) => {
 
@@ -73,7 +73,7 @@ export const Slider = ({ position, context, icon}) => {
         onClick={() => changeSlide(context.currentSlide)}
       >
         Change slide
-        <SVG  className={`icon `} no-cors="true" src={icon} width="16px" height="16px" title="Menu" />
+        <Svg  className={`icon `} no-cors="true" src={icon} width="16px" height="16px" title="Menu" />
       </button>
     </>
   )

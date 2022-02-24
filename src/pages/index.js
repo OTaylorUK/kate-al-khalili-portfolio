@@ -34,7 +34,6 @@ export const query = graphql`
   query MyQuery {
     prismicPage(data: {}, uid: {eq: "home"}) {
       _previewable
-      id
       data {
         document_display_name {
           text
@@ -44,25 +43,20 @@ export const query = graphql`
             slice_type
           }
           ...PageDataBodyTextAndImage
+          ...PageDataBodyTextHome
           ...PageDataBodyTextAndGrid
+          ...PageDataBodyDynamicContent
+          ...PageDataBodyTextAndEmbed
         }
-      }
-    }
-    prismicGlobalSettings {
-      data {
-        typography {
-          font
-          name {
-            text
+        content {
+          ... on PrismicSliceType {
+            slice_type
           }
-          weights
+          ...PageDataContentGeneralCard
+          ...PageDataContentTwitterCard
         }
-        colour_palette {
-          name {
-            text
-          }
-          colour
-        }
+        description
+        title
       }
     }
   },

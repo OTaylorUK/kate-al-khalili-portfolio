@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
 import { GeneralCard } from '../slices/GeneralCard'
 import { TwitterCard } from '../slices/TwitterCard'
 import { useState, useEffect } from 'react'

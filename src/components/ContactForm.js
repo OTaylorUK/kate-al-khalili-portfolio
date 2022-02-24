@@ -7,8 +7,6 @@ import axios from "axios"
 
 export const ContactForm = () => {
 
-	const TEST_SITE_KEY = "6Lc6-HkeAAAAAJpjjH9hvayzElY-9znIs3_vBTvx";
-	const TEST_SECRET_KEY = "6Lc6-HkeAAAAAIqfSVbFuAaro299sQOepC76_wDE"
 	const SignupSchema = Yup.object().shape({
 		from_name: Yup.string()
 			.min(2, 'Too Short!')
@@ -54,15 +52,15 @@ export const ContactForm = () => {
 					method: "POST",
 					url: "/api/test",
 					data: {
-						secretkey: TEST_SECRET_KEY,
+						secretkey: process.env.GATSBY_PRISMIC_CAPTCHA_SECRET_KEY,
 						token: token
 					},
 					withCredentials: false
 				  }).then((response) => {
 					//response from your API that includes the NASA API image
-
+					
 					  if (response.data.success) {
-						emailjs.send("service_5qfjjtl", "template_u77tluc", values, "user_NvFpXyP3FJUdr3jrwgJpj")
+						emailjs.send("service_5qfjjtl", "template_u77tluc", values, process.env.GATSBY_PRISMIC_EMAILJS_USER)
 						.then((result) => {
 							setButtonState('Submission received');
 							setFormSubmitted(true)
@@ -198,7 +196,7 @@ export const ContactForm = () => {
 							<div className="field-group full">
 								<ReCAPTCHA
 									ref={recaptchaRef}
-									sitekey={TEST_SITE_KEY}
+									sitekey={process.env.GATSBY_PRISMIC_CAPTCHA_SITE_KEY}
 									size="invisible"
 								/>
 								<button className='submit-btn' disabled={props.isSubmitting} type="submit">{buttonState}</button>

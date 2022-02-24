@@ -13,12 +13,12 @@ const PageTemplate = ({ data }) => {
 
   const page = data.prismicPage
 
-  const { body, document_display_name, content, description, title } = page.data;
+  const { body, content, description, title } = page.data;
  
 
   return (
     <Layout isHomepage={false}  body={body} >
-      <Seo title={document_display_name.text} metaData={content} description={description} title={title}/>
+      <Seo metaData={content} description={description} title={title}/>
     </Layout>
   )
 }
