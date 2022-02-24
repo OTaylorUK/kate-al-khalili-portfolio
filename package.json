@@ -2,7 +2,11 @@
   "name": "gatsby-getting-started-tutorial",
   "description": "A simple tutorial to get started with Prismic & Gatsby.js",
   "dependencies": {
+    "@emailjs/browser": "^3.4.0",
     "@prismicio/react": "^2.0.0",
+    "@typeform/embed-react": "^1.2.4",
+    "axios": "^0.26.0",
+    "formik": "^2.2.9",
     "gatsby": "^4.3.0",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^2.3.0",
@@ -17,7 +21,11 @@
     "prismic-reactjs": "^1.3.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0"
+    "react-google-recaptcha": "^2.1.0",
+    "react-helmet": "^6.1.0",
+    "react-inlinesvg": "^2.3.0",
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "build": "gatsby build",

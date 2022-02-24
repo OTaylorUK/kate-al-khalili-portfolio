@@ -1,7 +1,8 @@
 // LinkResolver.js file
 
 exports.linkResolver = (doc) => {
-	if (doc.type === 'page') {
+
+	if (doc.uid !== 'home') {
 	  return `/${doc.uid}`
 	}
   

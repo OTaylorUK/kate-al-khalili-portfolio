@@ -1,21 +1,24 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import { SliceZone } from '@prismicio/react'
 import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 
 import { Layout } from '../components/Layout'
 import { Seo } from '../components/Seo'
 
-import { components } from '../slices'
+
 
 const PageTemplate = ({ data }) => {
+  
   if (!data) return null
+
   const page = data.prismicPage
 
+  const { body, document_display_name, content, description, title } = page.data;
+ 
+
   return (
-    <Layout>
-      <Seo title={page.data.document_display_name.text} />
-      <SliceZone slices={page.data.body} components={components} />
+    <Layout isHomepage={false}  body={body} >
+      <Seo title={document_display_name.text} metaData={content} description={description} title={title}/>
     </Layout>
   )
 }
@@ -32,14 +35,24 @@ export const query = graphql`
           ... on PrismicSliceType {
             slice_type
           }
-          ...PageDataBodyText
-          ...PageDataBodyQuote
-          ...PageDataBodyFullWidthImage
-          ...PageDataBodyImageGallery
-          ...PageDataBodyImageHighlight
+          ...PageDataBodyTextAndImage
+          ...PageDataBodyTextHome
+          ...PageDataBodyTextAndGrid
+          ...PageDataBodyDynamicContent
+          ...PageDataBodyTextAndEmbed
         }
+        content {
+          ... on PrismicSliceType {
+            slice_type
+          }
+          ...PageDataContentGeneralCard
+          ...PageDataContentTwitterCard
+        }
+        description
+        title
       }
     }
+  
   }
 `
 

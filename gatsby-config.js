@@ -7,8 +7,8 @@ const siteUrl = process.env.GATSBY_PRISMIC_SITE_URL || `https://fallback.net`
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby + Prismic Tutorial',
-    description: 'Learn how to integrate Prismic into your Gatsby project.',
+    title: 'Kate Al-Khalili',
+    description: 'Assistant Producer',
   },
   plugins: [
     {
@@ -43,12 +43,6 @@ module.exports = {
         repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,
         linkResolver: require('./src/utils/LinkResolver').linkResolver,
         customTypesApiToken: process.env.GATSBY_PRISMIC_CUSTOM_TYPES_API_TOKEN,
-        // schemas: {
-        //   homepage: require('./custom_types/homepage.json'),
-        //   navigation: require('./custom_types/navigation.json'),
-        //   page: require('./custom_types/page.json'),
-        //   testing: require('./custom_types/testing.json'),
-        // },
       },
     },
     {
@@ -76,7 +70,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-fonts',
       options: {
-        fonts: [`Lato\:400,400,700,700i,900`, `Amiri\:400,400,700,700i`],
+        fonts: [
+          `Poppins\:400`, `Questrial\:400`
+        ],
       },
     },
   ],

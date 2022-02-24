@@ -6,9 +6,6 @@ import {
   componentResolverFromMap,
 } from 'gatsby-plugin-prismic-previews'
 
-import './src/styles/reset.css'
-import './src/styles/common.css'
-import './src/styles/style.css'
 
 import { linkResolver } from './src/utils/LinkResolver'
 import HomeTemplate from './src/pages/index'

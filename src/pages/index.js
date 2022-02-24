@@ -5,63 +5,65 @@ import { SliceZone } from '@prismicio/react'
 
 import { Layout } from '../components/Layout'
 import { Seo } from '../components/Seo'
-import { HomepageBanner } from '../components/HomepageBanner'
 import { components } from '../slices'
+
 
 const HomeTemplate = ({ data }) => {
   if (!data) return null
-  const doc = data.prismicHomepage.data
+  // const doc = data.prismicHomepage.data
+  // const colour_palette = settings.colour_palette;
+  const page = data.prismicPage
+
+  const settings = data.prismicGlobalSettings.data;
+ 
 
   return (
-    <Layout isHomepage={true}>
+    <Layout isHomepage={true} settings={settings}>
       <Seo title="Home" />
-      <HomepageBanner
-        title={doc.banner_title.text}
-        description={doc.banner_description.text}
-        linkUrl={doc.banner_link.url}
-        linkLabel={doc.banner_link_label.text}
-        backgroundUrl={doc.banner_background.url}
-      />
-      <SliceZone slices={doc.body} components={components} />
+     
+      <SliceZone slices={page.data.body} components={components} />
     </Layout>
   )
 }
 
+
+export default withPrismicPreview(HomeTemplate)
+
 export const query = graphql`
+
   query MyQuery {
-    prismicHomepage {
+    prismicPage(data: {}, uid: {eq: "home"}) {
       _previewable
+      id
       data {
-        banner_title {
+        document_display_name {
           text
-        }
-        banner_description {
-          text
-        }
-        banner_link {
-          url
-          type
-          uid
-        }
-        banner_link_label {
-          text
-        }
-        banner_background {
-          url
         }
         body {
           ... on PrismicSliceType {
             slice_type
           }
-          ...HomepageDataBodyText
-          ...HomepageDataBodyQuote
-          ...HomepageDataBodyFullWidthImage
-          ...HomepageDataBodyImageGallery
-          ...HomepageDataBodyImageHighlight
+          ...PageDataBodyTextAndImage
+          ...PageDataBodyTextAndGrid
         }
       }
     }
-  }
+    prismicGlobalSettings {
+      data {
+        typography {
+          font
+          name {
+            text
+          }
+          weights
+        }
+        colour_palette {
+          name {
+            text
+          }
+          colour
+        }
+      }
+    }
+  },
 `
-
-export default withPrismicPreview(HomeTemplate)
