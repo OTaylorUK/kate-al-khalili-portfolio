@@ -4,7 +4,7 @@ import { GeneralCard } from '../slices/GeneralCard'
 import { TwitterCard } from '../slices/TwitterCard'
 import { useState, useEffect } from 'react'
 
-export const Seo = ({ description, title, metaData }) => {
+export const Seo = ({ description, title, metaData, pageName }) => {
   
 
 
@@ -46,8 +46,8 @@ export const Seo = ({ description, title, metaData }) => {
         <meta name="robots" content="index, follow" />
 
       </Helmet>
-      <GeneralCard metaData={generalData} />
-      <TwitterCard metaData={twitterData} />
+      <GeneralCard metaData={generalData} pageName={pageName} />
+      <TwitterCard metaData={twitterData} pageName={pageName} />
     </>
 
   )

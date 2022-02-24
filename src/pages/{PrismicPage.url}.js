@@ -4,21 +4,28 @@ import { withPrismicPreview } from 'gatsby-plugin-prismic-previews'
 
 import { Layout } from '../components/Layout'
 import { Seo } from '../components/Seo'
+// import { useState,useEffect } from 'react'
 
 
 
-const PageTemplate = ({ data }) => {
+const PageTemplate = ({data, path}) => {
   
   if (!data) return null
 
   const page = data.prismicPage
 
   const { body, content, description, title } = page.data;
- 
+
+  const pageName =  path.split('/')[1].toLowerCase();
+  let nicePageName = pageName;
+  
+  if (pageName === '') {
+    nicePageName = 'home';
+  } 
 
   return (
-    <Layout isHomepage={false}  body={body} >
-      <Seo metaData={content} description={description} title={title}/>
+    <Layout isHomepage={false}  body={body} pageName={pageName} nicePageName={nicePageName}>
+      <Seo metaData={content} description={description} title={title} pageName={pageName} />
     </Layout>
   )
 }

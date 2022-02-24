@@ -12,7 +12,7 @@ import { Main } from './Main'
 
 import { convertSettings, useWindowSize } from '../utils/Functions';
 
-export const Layout = ({ isHomepage, children, body }) => {
+export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) => {
 
 
   // GRAPHQL QUERY //
@@ -49,7 +49,6 @@ export const Layout = ({ isHomepage, children, body }) => {
   let scrollLimit = useRef(null);
   const slideBreakPoints = useRef([]);
   
-  const [pageName] = useState(window.location.pathname.slice(1)); // remove slash
   const previousY = useRef(0);
   let itemNum = useRef(1);
   const [mainHeight, setMainHeight] = useState('0px')
@@ -57,11 +56,6 @@ export const Layout = ({ isHomepage, children, body }) => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const [theme, setTheme] = useState('dark');
-  const [name, setName] = useState(window.location.pathname.slice(1));
-  // const nicePageName = name[0] === '' ? 'home' : name[0];
-  
-  const [nicePageName, setNicePageName] = useState(name); 
-
  
     
   const [lightTheme, setLightTheme] = useState(settings_obj);
@@ -313,10 +307,16 @@ export const Layout = ({ isHomepage, children, body }) => {
   // EVENT LISTNERS - RESIZE //
   // Used to reset the slide position (to 1st slide) on resize
   let doit;
-  window.addEventListener('resize', (event) => {
-    clearTimeout(doit);
-    doit = setTimeout(simpleDesktopScroll({event}), 200);
-  });
+
+  if (typeof window !== `undefined`){
+    window.addEventListener('resize', (event) => {
+      clearTimeout(doit);
+      doit = setTimeout(simpleDesktopScroll({event}), 200);
+    });
+  }
+
+  
+
 
   // CONTEXT PARAMS //
   // To use in other slices/components
@@ -396,17 +396,11 @@ export const Layout = ({ isHomepage, children, body }) => {
     scrollLimit.current = number * windowWidth
     }
 
-    let usePageName = window.location.pathname.slice(1);
-
-     
-    if (usePageName[0]) {
-      setName(usePageName[0])
-    }
-
+  
     // let themeStyle = 'dark';
     setTheme('dark')
 
-    switch (usePageName) {
+    switch (nicePageName) {
       case "work":
         if (body[0].items) {
 
@@ -427,9 +421,9 @@ export const Layout = ({ isHomepage, children, body }) => {
         setTheme('light')
         // setFinalTheme(newObj)
       break;
-      case "":
+      case "home":
         itemNum.current = 1;
-        setNicePageName('home')
+       
       break;
       default:
         itemNum.current = 1;
@@ -442,7 +436,7 @@ export const Layout = ({ isHomepage, children, body }) => {
 
     updateScrollLimit(itemNum.current)
     updateSlideBreakPoints(itemNum.current)
-  }, [body, scrollSensitivity, windowWidth ]);
+  }, [body, scrollSensitivity, windowWidth, nicePageName ]);
 
 
   // theme dependent //
