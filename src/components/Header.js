@@ -5,9 +5,9 @@ import { graphql, useStaticQuery } from 'gatsby'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { StyledHeader } from "../styles/components/Header.styled";
 import { useState,useEffect,useMemo } from 'react'
+import { NavLink } from './NavLink';
 
-
-export const Header = ({ isHomepage, styles, pageName, context}) => {
+export const Header = ({ headerVals, isHomepage, styles, pageName, context}) => {
   const queryData = useStaticQuery(graphql`
     {
       prismicNavigation {
@@ -32,7 +32,6 @@ export const Header = ({ isHomepage, styles, pageName, context}) => {
       }
     }
   `)
-
 
 
   const { main_navigation, secondary_navigation } = queryData.prismicNavigation.data;
@@ -119,8 +118,7 @@ export const Header = ({ isHomepage, styles, pageName, context}) => {
   }
 
 
-
-
+ 
 
   return (
     <StyledHeader className={compClass} context={context} >
@@ -145,7 +143,7 @@ export const Header = ({ isHomepage, styles, pageName, context}) => {
           {mergedList.map((item, index) => {
             const { link, link_label, type } = item;
 
-            let classList = ["primary-nav-item", type, ];
+            let classList = ["primary-nav-item", type,];
             let linkClass = ["nav-link"];
 
             let pathName = link.url.slice(1); // remove slash
@@ -167,20 +165,26 @@ export const Header = ({ isHomepage, styles, pageName, context}) => {
 
             let direction = '';
 
-            if (directionAnimations[context.nicePageName] !== undefined){
-               direction = directionAnimations[context.nicePageName][pathName];
+            if (directionAnimations[context.nicePageName] !== undefined) {
+              direction = directionAnimations[context.nicePageName][pathName];
             }
             
             const finalClass = classList.join(" ");
             const finalNavClass = linkClass.join(" ");
-          
-
+            
             return (
-              <li key={`link-${index}`} className={finalClass} >
-                <AniLink className={finalNavClass} cover direction={direction} bg={bgColour}  to={link.url}>
-                  {link_label.text}
-                </AniLink>
-              </li>
+              <NavLink
+                key={`link-${index}`}
+                headerVals={headerVals}
+                pathName={pathName}
+                finalClass={finalClass}
+                finalNavClass={finalNavClass}
+                direction={direction}
+                bgColour={bgColour}
+                linkURL={link.url}
+                linkText={link_label.text}
+              />
+
             )
           })}
           

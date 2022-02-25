@@ -48,6 +48,7 @@ export const StyledHeader = styled.header`
 
 
 		.close-icon{
+			flex: 1;
 			width: 2rem;
 			background: none;
 			border: none;

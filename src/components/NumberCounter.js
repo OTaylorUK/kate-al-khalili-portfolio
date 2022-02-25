@@ -23,15 +23,22 @@ export const NumberCounter = ({context, overrideNumber = null}) => {
 
 
   let curSetNum = context.currentSlide;
+  let niceCurNum = curSetNum;
 
   if (overrideNumber !== null) {
     classList.push("disabled")
     curSetNum = overrideNumber
   }
 
+  if (curSetNum < 10) {
+    niceCurNum = "0" + curSetNum
+  } else {
+    niceCurNum = curSetNum
+  }
+
   return (
     <StyledNumberCounter className={`number-count`} role="slider" aria-valuenow={curSetNum}>
-      <span className="current-number">0{curSetNum}</span>
+      <span className="current-number">{niceCurNum}</span>
       <span className="divider">/</span>
       <span className="last-number">{lastNumber}</span>
     </StyledNumberCounter>

@@ -119,7 +119,8 @@ const GlobalStyles = createGlobalStyle`
 
 
 	html{
-		height: 100vh;
+		min-height: 100%;
+		height: 100%;
 		max-height: 100vh;
 		display: flex;
 		flex-flow: column;
@@ -134,6 +135,10 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body{
+		min-height: 100%;
+		height: 100%;
+		max-height: 100vh;
+
 		overflow: hidden;
 		position: relative;
 		&:before{
@@ -152,11 +157,33 @@ const GlobalStyles = createGlobalStyle`
 			animation: ${loading} 2s linear infinite;
 			/* animation: noise 1s steps(2) infinite; */
 		}
+		> *{
+			min-height: 100%;
+			height: 100%;
+			max-height: 100%;
+			#gatsby-focus-wrapper{
+				min-height: 100%;
+				height: 100%;
+				max-height: 100%;
+				> *{
+					min-height: 100%;
+					height: 100%;
+					max-height: 100%;
+					> *{
+						min-height: 100%;
+						height: 100%;
+						max-height: 100%;
+						
+					}
+				}
+			}
+		}
 	}
 
 	.page-wrapper{
-		height: 100vh;
-		max-height: 100vh;
+		min-height: 100%;
+		height: 100%;
+		max-height: 100%;
 		display: flex;
 		flex-flow: column;
 	

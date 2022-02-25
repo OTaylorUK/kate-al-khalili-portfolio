@@ -123,10 +123,24 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     return res;
   }
 
+  
+
+
+
+  const [simulateClick, setSimulateClick] = useState(false);
+  const [simulateTarget, setSimulateTarget] = useState(null);
+
+
+  const headerVals = {
+    simulateClick,
+    simulateTarget,
+    setSimulateClick
+  }
 
   // MOBILE - SCROLL EVENTS //
   const touchStart = (event) => {
-    scrollStart.current = event.touches[0].pageY;
+    scrollStart.current = event.touches[0].pageX;
+    // scrollStart.current = event.touches[0].pageY;
     setIsScrolling(true);
   }
   
@@ -134,20 +148,35 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     setIsScrolling(false);
   }
 
-  const mobileScrolled = (event) => {
+  const mobileScrolled = ({event, position}) => {
     let movingForward = false;
     // let difference = scrollStart.current - event.touches[0].pageY
     let nearestSlide = null;
     let  moveToSlideNumber
 
+    console.log('position:', position);
     if (!isScrolling) {
       return false;
     }
 
-    // let newNum = previousY.current + difference
+    if (position === 'rhs' || position === 'home') {
+      if (event.touches[0].pageX < scrollStart.current) {
+        movingForward = !movingForward;
+      }
+    } else {
+      if (event.touches[0].pageX > scrollStart.current) {
+        movingForward = !movingForward;
+      }
+    }
+    if (position === 'home') { 
+      setSimulateClick(true);
+      if (movingForward) {
+        setSimulateTarget('work')
+      } else {
+        setSimulateTarget('bio')
+      }
+      return false;
 
-    if (event.touches[0].pageY < scrollStart.current) {
-      movingForward = !movingForward;
     }
 
     if (pageName === "" || sliderScrolled) {
@@ -158,7 +187,7 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
       moveToSlideNumber = currentSlide + 1;
 
       if (moveToSlideNumber > slideBreakPoints.current.length) {
-        moveToSlideNumber = 1;
+        moveToSlideNumber = currentSlide;
       }
 
     } else {
@@ -166,8 +195,11 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
       moveToSlideNumber = currentSlide - 1;
 
       if (moveToSlideNumber < 1) {
-        
         moveToSlideNumber = currentSlide;
+        setSimulateClick(true);
+        setSimulateTarget('home')
+        return false;
+
       }
     }
     
@@ -183,72 +215,6 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   };
   
 
-  // DESKTOP - SCROLL EVENTS //
-  // const desktopScrolled = (event) => {
-  //   let movingForward = false;
-  //   let nearestSlide = null;
-  //   let newNum = previousY.current + event.deltaY
-  //   let positionRef = newNum;
-  //   let jumpToSlide = false;
-
-  //   if (pageName === ""  || sliderScrolled ) {
-  //     return null;
-  //   }
-
-  //   if (newNum > previousY.current) {
-  //     movingForward = !movingForward;
-  //     positionRef += windowWidth 
-  //   }
-
-
-  //   let firstSlideStart = slideBreakPoints.current[0].activeRange.start
-  //   let lastSlideEnd = slideBreakPoints.current.at(-1).activeRange.end
-
-
-  //   nearestSlide = slideBreakPoints.current.filter(function (slide) {
-  //     let dataRange = slide.activeRange;
-
-  //     // is within the range to jump to this slide
-  //     if (positionRef >= dataRange.start && positionRef <= dataRange.end) {
-  //       return slide
-  //     } else {
-  //       return false;
-  //     }
-  //   })[0];
-
-  //   if (nearestSlide && nearestSlide.slideNumber && nearestSlide.slideNumber !== currentSlide) {
-  //     jumpToSlide = true;
-  //   }
-    
-  //   // if at near either extreme of the track this will slide the user back to the limit
-  //   if (!movingForward && newNum < firstSlideStart) { 
-  //     jumpToSlide = true;
-  //     nearestSlide = slideBreakPoints.current[0];
-  //   } else if (movingForward && positionRef > lastSlideEnd) {
-  //     jumpToSlide = true;
-  //     nearestSlide = slideBreakPoints.current.at(-1);
-  //   }
-    
-  //   if (jumpToSlide) {
-  //     updateSlide(nearestSlide.slideNumber)
-  //     setslideStatus("fixed")
-  //     setsliderScrolled(true)
-
-  //     setTimeout(() => {
-  //       setsliderScrolled(false)
-  //     }, 600);
-
-  //     previousY.current = nearestSlide.position;
-
-  //   } else if (positionRef < scrollLimit.current) {
-  //     // if not scrolling further than the limit then the track will move in alignment with the scroll amount
-  //     setsliderOffset(calculateTranslate({ number: newNum }))
-  //     setslideStatus("moving")
-  //     previousY.current = newNum;
-  //   }
-
-
-  // };
 
   const simpleDesktopScroll = ({event}) => {
     let movingForward = false;
@@ -335,7 +301,6 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     mainHeight
   }
 
- 
 
   
   // INITIAL COMPONENT LOAD //
@@ -472,7 +437,7 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
       <div
         className="page-wrapper"
         onWheel={(event) => simpleDesktopScroll({event})}
-        onTouchMove={mobileScrolled}
+        onTouchMove={(event) => mobileScrolled({event: event, position: sliderPosition})}
         onTouchStart={touchStart}
         onTouchEnd={touchEnd}
       >
@@ -481,6 +446,7 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
           isHomepage={isHomepage}
           styles={settings_obj}
           context={objs}
+          headerVals={headerVals}
         />
         
         {children}
