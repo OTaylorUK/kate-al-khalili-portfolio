@@ -54,6 +54,12 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   const [mainHeight, setMainHeight] = useState('0px')
   const scrollStart = useRef(0);
   const scrollStartY = useRef(0);
+
+  const scrollEnd = useRef(0);
+  const scrollEndY = useRef(0);
+
+
+
   const [isScrolling, setIsScrolling] = useState(false);
 
   const [theme, setTheme] = useState('dark');
@@ -130,7 +136,7 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
 
   const [simulateClick, setSimulateClick] = useState(false);
   const [simulateTarget, setSimulateTarget] = useState(null);
-
+  const [isDragging, setIsDragging] = useState(false);
 
   const headerVals = {
     simulateClick,
@@ -141,14 +147,129 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   // MOBILE - SCROLL EVENTS //
   const touchStart = (event) => {
 
-    console.log('y:', event.touches[0].pageY);
     scrollStart.current = event.touches[0].pageX;
     scrollStartY.current = event.touches[0].pageY;
     setIsScrolling(true);
   }
   
   const touchEnd = (event) => {
-    setIsScrolling(false);
+
+    // if (pageName === "" || !isScrolling) {
+    //   return null;
+    // }
+  
+    if (!isDragging) {
+      return false;
+    }
+
+    console.log('scrollStart:', scrollStart.current);
+    console.log('scrollEnd:', scrollEnd.current);
+
+    const scrollYMin = scrollStartY.current - 10;
+    const scrollYMax = scrollStartY.current + 10;
+
+
+    // if (event.touches[0].pageY < scrollYMin && event.touches[0].pageY > scrollYMax) { 
+    //   return false;
+    // }
+
+    let moveDir = 'no-move';
+    let moveToSlideNumber;
+    let nearestSlide;
+
+
+    const dif = scrollStart.current - scrollEnd.current;
+
+    console.log('dif:', dif);
+    
+    if (sliderPosition === 'rhs' || sliderPosition === 'home') {
+
+      if (dif > 0) {
+        moveDir = 'forward';
+      } else if (dif === 0){
+        moveDir = 'no-move';
+      }else {
+        moveDir = 'back';
+      }
+   
+    } else {
+
+      if (dif < 0) {
+        moveDir = 'forward';
+      } else if (dif === 0){
+        moveDir = 'no-move';
+      }else {
+        moveDir = 'back';
+      }
+    }
+
+    console.log('moveDir', moveDir);
+    console.log('sliderPosition', sliderPosition);
+
+    // setMoveDirection(moveDir)
+    if (sliderPosition === 'home') { 
+      setSimulateClick(true);
+      console.log('HOME!');
+
+      if (moveDir === 'forward') {
+        console.log('work');
+
+        setSimulateTarget('work')
+      } else {
+        console.log('bio');
+        setSimulateTarget('bio')
+      }
+    } else {
+      if (moveDir !== null) {
+
+        switch (moveDir) {
+          case 'forward':
+  
+              moveToSlideNumber = currentSlide + 1;
+  
+              if (moveToSlideNumber > slideBreakPoints.current.length) {
+                moveToSlideNumber = currentSlide;
+              }
+  
+            break;
+          case 'back':
+            // moving back
+            moveToSlideNumber = currentSlide - 1;
+  
+            if (moveToSlideNumber < 1) {
+              moveToSlideNumber = currentSlide;
+              setSimulateClick(true);
+              setSimulateTarget('home')
+            }
+  
+            break;
+          
+          default:
+            break;
+        }
+  
+  
+        if (moveDir !== 'no-move') {
+          nearestSlide =  slideBreakPoints.current.filter(slide => slide.slideNumber === moveToSlideNumber)[0];
+  
+          updateSlide(nearestSlide.slideNumber)
+          setslideStatus("fixed")
+          setsliderScrolled(true)
+          setTimeout(() => {
+            setsliderScrolled(false)
+          }, 600);
+          previousY.current = nearestSlide.position;
+  
+        }
+        
+      }
+  
+      scrollEnd.current = scrollStart.current;
+      setIsScrolling(false);
+      setIsDragging(false)
+    }
+    
+    
   }
 
   const mobileScrolled = ({event, position}) => {
@@ -157,75 +278,94 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     let nearestSlide = null;
     let  moveToSlideNumber
 
-    if (!isScrolling) {
-      return false;
-    }
 
-    // prevent anything other than horizontal scroll
+    if (isScrolling) {
+      setIsDragging(true);
+      scrollEnd.current = event.touches[0].pageX;
+      scrollEndY.current = event.touches[0].pageY;
+    }
+   
+
+
+    // if (!isScrolling) {
+    //   return false;
+    // }
+
+    // // prevent anything other than horizontal scroll
 
  
+    // // const scrollYMin = scrollStartY.current - 10;
+    // // const scrollYMax = scrollStartY.current + 10;
+
     // const scrollYMin = scrollStartY.current - 10;
     // const scrollYMax = scrollStartY.current + 10;
+    // if (event.touches[0].pageY < scrollYMin && event.touches[0].pageY > scrollYMax) { 
+    //   return false;
 
-    if (event.touches[0].pageY !== scrollStartY.current) { 
-      return false;
-    }
+    // }
 
+    // moveDir = 'no-move';
     
 
-    if (position === 'rhs' || position === 'home') {
-      if (event.touches[0].pageX < scrollStart.current) {
-        movingForward = !movingForward;
-      }
-    } else {
-      if (event.touches[0].pageX > scrollStart.current) {
-        movingForward = !movingForward;
-      }
-    }
-    if (position === 'home') { 
-      setSimulateClick(true);
-      if (movingForward) {
-        setSimulateTarget('work')
-      } else {
-        setSimulateTarget('bio')
-      }
-      return false;
+    // if (position === 'rhs' || position === 'home') {
+    //   if (event.touches[0].pageX < scrollStart.current) {
+    //     // movingForward = !movingForward;
+    //     moveDir = 'forward';
 
-    }
+    //   }
+    // } else {
+    //   if (event.touches[0].pageX > scrollStart.current) {
+    //     // movingForward = !movingForward;
+    //     moveDir = 'back';
 
-    if (pageName === "" || sliderScrolled) {
-      return null;
-    }
+    //   }
+    // }
+
+    // setMoveDirection(moveDir)
+    // if (position === 'home') { 
+    //   setSimulateClick(true);
+    //   if (movingForward) {
+    //     setSimulateTarget('work')
+    //   } else {
+    //     setSimulateTarget('bio')
+    //   }
+    //   return false;
+
+    // }
+
+    // if (pageName === "" || sliderScrolled) {
+    //   return null;
+    // }
     
-    if (movingForward) {
-      moveToSlideNumber = currentSlide + 1;
+    // if (movingForward) {
+    //   moveToSlideNumber = currentSlide + 1;
 
-      if (moveToSlideNumber > slideBreakPoints.current.length) {
-        moveToSlideNumber = currentSlide;
-      }
+    //   if (moveToSlideNumber > slideBreakPoints.current.length) {
+    //     moveToSlideNumber = currentSlide;
+    //   }
 
-    } else {
-      // moving back
-      moveToSlideNumber = currentSlide - 1;
+    // } else {
+    //   // moving back
+    //   moveToSlideNumber = currentSlide - 1;
 
-      if (moveToSlideNumber < 1) {
-        moveToSlideNumber = currentSlide;
-        setSimulateClick(true);
-        setSimulateTarget('home')
-        return false;
+    //   if (moveToSlideNumber < 1) {
+    //     moveToSlideNumber = currentSlide;
+    //     setSimulateClick(true);
+    //     setSimulateTarget('home')
+    //     return false;
 
-      }
-    }
+    //   }
+    // }
     
-    nearestSlide =  slideBreakPoints.current.filter(slide => slide.slideNumber === moveToSlideNumber)[0];
+    // nearestSlide =  slideBreakPoints.current.filter(slide => slide.slideNumber === moveToSlideNumber)[0];
 
-    updateSlide(nearestSlide.slideNumber)
-    setslideStatus("fixed")
-    setsliderScrolled(true)
-    setTimeout(() => {
-      setsliderScrolled(false)
-    }, 600);
-    previousY.current = nearestSlide.position;
+    // updateSlide(nearestSlide.slideNumber)
+    // setslideStatus("fixed")
+    // setsliderScrolled(true)
+    // setTimeout(() => {
+    //   setsliderScrolled(false)
+    // }, 600);
+    // previousY.current = nearestSlide.position;
   };
   
 
