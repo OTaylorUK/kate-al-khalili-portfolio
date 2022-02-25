@@ -76,7 +76,7 @@ export const TextGrid = ({slice, context, index }) => {
 
       <SectionContent limitWidth={true} classList={!gridIsActive && `active`} contentType={'text'} >
         <div className="content-actual">
-          <div className="row">
+          <div className="row header">
             <PrismicRichText field={header} />
           </div>
           

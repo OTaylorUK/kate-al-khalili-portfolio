@@ -8,7 +8,7 @@ const fontSizes = {
 		laptop: '2rem',
 	},
 	h2: {
-		mobile: '1.1rem',
+		mobile: '1rem',
 		laptop: '1.3rem'
 	},
 	h3: {
@@ -81,8 +81,11 @@ export const Typography = () => css`
 
 	p{
 		margin-bottom: .5em;
-		font-size: 1em;
+		font-size: .95em;
 		line-height: 150%;
+		@media ${mediaQuery({})} { 
+			font-size: 1em;
+		}
 		
 	}
 	.small{

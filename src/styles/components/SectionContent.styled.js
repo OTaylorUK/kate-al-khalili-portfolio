@@ -23,10 +23,10 @@ export const StyledSectionContent = styled.div`
 					} */
 				}
 				&.header{
-					margin-bottom: .2em;
+					margin-bottom: .5vh;
 				}
 				&.sub-header{
-					margin-bottom: 3vh;
+					margin-bottom: 1vh;
 					*{
 						/* text-transform: uppercase; */
 						color: ${({ theme }) => theme.colour_palette.grey};
@@ -125,6 +125,12 @@ export const StyledSectionContent = styled.div`
 						p:nth-last-child(1){
 							display: initial;
 						}
+					}
+					&.header{
+						margin-bottom: .2em;
+					}
+					&.sub-header{
+						margin-bottom: 3vh;
 					}
 				}
 			}

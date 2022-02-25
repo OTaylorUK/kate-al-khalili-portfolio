@@ -53,6 +53,7 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   let itemNum = useRef(1);
   const [mainHeight, setMainHeight] = useState('0px')
   const scrollStart = useRef(0);
+  const scrollStartY = useRef(0);
   const [isScrolling, setIsScrolling] = useState(false);
 
   const [theme, setTheme] = useState('dark');
@@ -139,8 +140,10 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
 
   // MOBILE - SCROLL EVENTS //
   const touchStart = (event) => {
+
+    console.log('y:', event.touches[0].pageY);
     scrollStart.current = event.touches[0].pageX;
-    // scrollStart.current = event.touches[0].pageY;
+    scrollStartY.current = event.touches[0].pageY;
     setIsScrolling(true);
   }
   
@@ -154,10 +157,21 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     let nearestSlide = null;
     let  moveToSlideNumber
 
-    console.log('position:', position);
     if (!isScrolling) {
       return false;
     }
+
+    // prevent anything other than horizontal scroll
+
+ 
+    // const scrollYMin = scrollStartY.current - 10;
+    // const scrollYMax = scrollStartY.current + 10;
+
+    if (event.touches[0].pageY !== scrollStartY.current) { 
+      return false;
+    }
+
+    
 
     if (position === 'rhs' || position === 'home') {
       if (event.touches[0].pageX < scrollStart.current) {
