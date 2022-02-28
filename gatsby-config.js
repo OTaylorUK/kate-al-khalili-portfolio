@@ -3,7 +3,7 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const siteUrl = process.env.GATSBY_PRISMIC_SITE_URL || `https://fallback.net`
+const siteUrl = process.env.GATSBY_PRISMIC_SITE_URL || `https://kind-wiles-9c8a28.netlify.app/`
 
 module.exports = {
   siteMetadata: {
@@ -78,6 +78,12 @@ module.exports = {
         fonts: [
           `Poppins\:400`, `Questrial\:400`
         ],
+        display: 'swap',
+        preconnect: true,
+        attributes: {
+            rel: 'stylesheet preload prefetch',
+            as: 'style',
+        },
       },
     },
   ],
