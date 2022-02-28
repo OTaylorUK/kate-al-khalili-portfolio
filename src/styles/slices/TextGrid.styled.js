@@ -68,10 +68,7 @@ export const StyledTextGrid = styled.section`
 		${btnStyling({})} 
 		${btnActive({defaultActive: true})} 
 		margin-bottom: 6vh;
-		opacity: .6;
-		&:hover{
-			opacity: 1;
-		}
+		
 	}
 
 	// ONLY ON MOBILE //
@@ -107,6 +104,7 @@ export const StyledTextGrid = styled.section`
 				padding: .5rem;
 			}
 		}
+		
 
 		.form-message-main{
 		

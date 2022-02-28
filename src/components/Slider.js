@@ -12,12 +12,30 @@ export const Slider = ({ position, context, icon}) => {
     context.updateSlide(number)
   }
 
-  const changeSlide = (number) => {
-    let newNum = 1;
-    if (number < context.sliderCount) {
-      newNum = number + 1;
-    } 
+  const changeSlide = (number, isBack = false) => {
+    let newNum = null;
+   
+
+    if (!isBack) {
+      if (number < context.sliderCount) {
+        newNum = number + 1;
+      } 
+    } else {
+      if (number > 1) {
+        newNum = number - 1;
+      } 
+    }
+
+    if (newNum === null) return false;
+    
     context.updateSlide(newNum)
+  }
+
+  let btnText = 'Next';
+
+
+  if (context.currentSlide === context.sliderCount) {
+    btnText = 'Reset'
   }
 
   return (
@@ -68,13 +86,27 @@ export const Slider = ({ position, context, icon}) => {
       </div>
       <NumberCounter context={context}  />
       </div>
-      <button
-        className={`toggle-next-slide ${position}`}
-        onClick={() => changeSlide(context.currentSlide)}
-      >
-        Change slide
-        <Svg  className={`icon `} no-cors="true" src={icon} width="16px" height="16px" title="Menu" />
-      </button>
+
+
+        <button
+          className={`toggle-next-slide ${position} ${context.currentSlide === context.sliderCount ? 'disabled' : ''}`}
+          onClick={() => changeSlide(context.currentSlide)}
+        >
+        Next
+          <Svg  className={`icon `} no-cors="true" src={icon} width="16px" height="16px" title="Menu" />
+        </button>
+     
+
+      
+        <button
+          className={`toggle-previous-slide ${position === 'lhs' ? 'rhs' : 'lhs force-order'} ${context.currentSlide === 1 ? 'hidden' : ''}`}
+          onClick={() => changeSlide(context.currentSlide, true)}
+        >
+        Back
+          <Svg  className={`icon `} no-cors="true" src={icon} width="16px" height="16px" title="Menu" />
+        </button>
+        
+
     </>
   )
 }

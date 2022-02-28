@@ -112,3 +112,12 @@ from { opacity: 1; }
 50% { opacity: ${minOpacity}; }
 to { opacity: 1; }
 `;
+
+
+
+
+export const bounceArrow = () => keyframes`
+from { transform: translateX(0%); }
+50% { transform: translateX(-20%); }
+to {transform: translateX(0%); }
+`;

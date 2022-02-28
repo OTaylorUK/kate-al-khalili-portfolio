@@ -147,6 +147,8 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   // MOBILE - SCROLL EVENTS //
   const touchStart = (event) => {
 
+   if (nicePageName === 'contact') return false;
+  
     scrollStart.current = event.touches[0].pageX;
     scrollStartY.current = event.touches[0].pageY;
     setIsScrolling(true);
@@ -154,24 +156,13 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   
   const touchEnd = (event) => {
 
-    // if (pageName === "" || !isScrolling) {
-    //   return null;
-    // }
-  
-    if (!isDragging) {
-      return false;
-    }
+    if (!isDragging) return false;
 
-    console.log('scrollStart:', scrollStart.current);
-    console.log('scrollEnd:', scrollEnd.current);
 
     const scrollYMin = scrollStartY.current - 10;
     const scrollYMax = scrollStartY.current + 10;
 
-
-    // if (event.touches[0].pageY < scrollYMin && event.touches[0].pageY > scrollYMax) { 
-    //   return false;
-    // }
+   
 
     let moveDir = 'no-move';
     let moveToSlideNumber;
@@ -180,31 +171,34 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
 
     const dif = scrollStart.current - scrollEnd.current;
 
-    console.log('dif:', dif);
-    
-    if (sliderPosition === 'rhs' || sliderPosition === 'home') {
 
-      if (dif > 0) {
-        moveDir = 'forward';
-      } else if (dif === 0){
-        moveDir = 'no-move';
-      }else {
-        moveDir = 'back';
-      }
-   
-    } else {
-
-      if (dif < 0) {
-        moveDir = 'forward';
-      } else if (dif === 0){
-        moveDir = 'no-move';
-      }else {
-        moveDir = 'back';
-      }
+    let niceDif = dif;
+    if (niceDif < 0) {
+      niceDif *= -1;
     }
 
-    console.log('moveDir', moveDir);
-    console.log('sliderPosition', sliderPosition);
+    if (niceDif > 30) {
+      if (sliderPosition === 'rhs' || sliderPosition === 'home') {
+
+        if (dif > 0) {
+          moveDir = 'forward';
+        } else if (dif === 0){
+          moveDir = 'no-move';
+        }else {
+          moveDir = 'back';
+        }
+    
+      } else {
+
+        if (dif < 0) {
+          moveDir = 'forward';
+        } else if (dif === 0){
+          moveDir = 'no-move';
+        }else {
+          moveDir = 'back';
+        }
+      }
+    } 
 
     // setMoveDirection(moveDir)
     if (sliderPosition === 'home') { 

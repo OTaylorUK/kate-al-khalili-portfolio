@@ -57,6 +57,12 @@ export const btnStyling = ({hasBorder = true}) => css`
 	&::before{
 		display: none;
 	}
+	&.disabled{
+		opacity: .3;
+	}
+	&.hidden{
+		display: none !important;
+	}
 	.icon{
 		margin-left: .5em;
 		path{

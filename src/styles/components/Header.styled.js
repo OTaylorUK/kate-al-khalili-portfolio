@@ -41,7 +41,7 @@ export const StyledHeader = styled.header`
 				text-transform: capitalize;
 				${linkStyling({colour: ({ theme }) =>   theme.colour_palette.white})};
 				${linkActive({})};
-
+				font-size: .9rem;
 			}
 			
 		}

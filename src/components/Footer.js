@@ -42,8 +42,11 @@ export const Footer = ({ count, theme, position, context, currentSlide}) => {
 
      {links.map((item, index) => {
       const { url, keytext, uid, icon } = item;
-      let classList = ["slide-btn"];
-      
+       let classList = ["slide-btn"];
+       
+       if (context.currentSlide === 1) {
+        classList.push('visible')
+       }
       const {src: iconSVG} = icon.gatsbyImageData.images.fallback;
 
        

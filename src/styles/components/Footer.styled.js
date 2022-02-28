@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Flex, FlexItem, btnStyling } from '../helpers/Mixins';
 import { mediaQuery } from '../helpers/MediaQuery';
-import { Pulsate } from "../helpers/Animations";
+import { Pulsate, bounceArrow } from "../helpers/Animations";
 
 
 
@@ -12,6 +12,7 @@ export const StyledFooter = styled.footer`
 	padding: 3vh 6vw;
 	z-index: 9999999;
 	.slide-btn{
+
 		a{
 			/* animation: ${Pulsate({minOpacity: .5})} 5s infinite linear; */
 			${btnStyling({hasBorder : false})} 
@@ -97,13 +98,34 @@ export const StyledFooter = styled.footer`
 		}
 		
 	}
-	.toggle-next-slide{
-		${btnStyling({hasBorder : false})} 
+	.toggle-next-slide,.toggle-previous-slide{
+		${btnStyling({ hasBorder: false })} 
+		
+		&:hover{
+			svg{
+				animation: ${bounceArrow({})} 1200ms infinite ease-in-out;
+			}
+		}
+		&.force-order{
+			order: -1;
+		}
+	}
+
+	.toggle-previous-slide{
+		svg{
+			rotate: 180deg;
+		}
 	}
 
 	@media ${mediaQuery({ type: "max" })}{ 
 		.number-count{
 			display: none;
+		}
+		.slide-btn{
+			display: none;
+			&.visible{
+				display:block;
+			}
 		}
 		
 	}

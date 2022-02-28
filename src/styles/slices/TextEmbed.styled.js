@@ -106,7 +106,8 @@ export const StyledTextEmbed = styled.section`
 			}
 		}
 		.submit-btn{
-			padding: 1rem;
+			padding: .3rem;
+			font-size: .85rem;
 			background: transparent;
 			border: ${({ theme }) => `1px ${theme.colour_palette.white} solid` };
 			cursor:pointer;
@@ -152,6 +153,7 @@ export const StyledTextEmbed = styled.section`
 		}
 		.contact-form{
 			.field-group{
+				max-width: 100%;
 				grid-column: 1 / -1;
 				.error-msg{
 					display: none;
@@ -160,9 +162,13 @@ export const StyledTextEmbed = styled.section`
 			label,.label{
 				font-size: .8rem;
 				margin-bottom: .2rem;
+				line-height: 140%;
 			}
 			input,textarea{
 				padding: .5rem;
+				max-width: 100%;
+				min-width: 100%;
+				max-height: 20vh;
 			}
 		}
 
