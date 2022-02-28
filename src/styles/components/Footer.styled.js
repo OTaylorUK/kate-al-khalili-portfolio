@@ -137,5 +137,8 @@ export const StyledFooter = styled.footer`
 		.toggle-next-slide{
 			display: none;
 		}
+		.toggle-previous-slide{
+			display: none;
+		}
 	}
 `
