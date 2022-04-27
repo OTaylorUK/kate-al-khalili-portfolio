@@ -76,6 +76,8 @@ export const StyledTextEmbed = styled.section`
 					height: auto;
 					margin-top: .8em;
 					margin-right: 1rem;
+
+				
 				
 					svg{
 						max-width: 20px;
@@ -91,7 +93,7 @@ export const StyledTextEmbed = styled.section`
 				&.gdpr{
 					align-items: flex-start;
 				}
-				&:hover{
+				&:hover,&.is-active{
 					cursor:pointer;
 					.styled-input{
 						background-color: ${({ theme }) =>  theme.colour_palette.white };

@@ -80,7 +80,7 @@ export const TextGrid = ({slice, context, index }) => {
             <PrismicRichText field={header} />
           </div>
           
-          {sub_header.length > 0 ?  <div className="row sub-header">
+          {sub_header.length > 0 ?  <div className="hide-on-mobile row sub-header">
             <PrismicRichText field={sub_header} />
           </div>
           : '' }

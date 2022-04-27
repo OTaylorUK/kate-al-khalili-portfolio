@@ -108,6 +108,13 @@ export const StyledSectionContent = styled.div`
 					}
 				}
 			}
+
+			.row{
+				&.hide-on-mobile{
+					display: none;
+				}
+			
+			}
 		}
 	}
 

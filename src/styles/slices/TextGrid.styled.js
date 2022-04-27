@@ -15,12 +15,13 @@ export const StyledTextGrid = styled.section`
 	
 	.inner-content{
 		${Flex({ flow: "row wrap", align: "normal"})};
-
+		gap: 1vh;
 		&.text{
 			padding: 0 6vw;
 			.content-actual{
 				${Flex({ flow: "column", justify: "center" })};
 				flex: 1;
+				gap: 1.5vh;
 			}
 		}
 		&.grid{
@@ -31,6 +32,8 @@ export const StyledTextGrid = styled.section`
 			.grid-container-actual{
 				${Flex({ flow: "column"})};
 				flex: 1;
+				gap: 1vh;
+
 			}
 
 			.grid-section-item{
@@ -39,17 +42,18 @@ export const StyledTextGrid = styled.section`
 				padding: 1em;
 				background-color: transparent;
 				cursor: crosshair;
+				gap: 1vh;
 				.section-header{
-					margin-bottom: .6em;
+					*{
+						font-weight: bold;
+					}
 				}
-				
 				&.active-item{
 					${Flex({ flow: "column", align: "center", justify: "center" })};
 					/* height: calc(100% - 10vw); */
 					height:100%;
 					text-align: center;
-					flex: 1;
-					margin-bottom: 1rem;
+					/* flex: 1; */
 				}
 			}
 			
@@ -67,7 +71,6 @@ export const StyledTextGrid = styled.section`
 	.mobile-navigation{
 		${btnStyling({})} 
 		${btnActive({defaultActive: true})} 
-		margin-bottom: 6vh;
 		
 	}
 
@@ -98,7 +101,6 @@ export const StyledTextGrid = styled.section`
 			}
 			label,.label{
 				font-size: .8rem;
-				margin-bottom: .2rem;
 			}
 			input,textarea{
 				padding: .5rem;
@@ -129,6 +131,7 @@ export const StyledTextGrid = styled.section`
 					.grid-section-item{
 						text-align: left;
 						${Flex({ flow: "column", justify: "center" })};
+						
 						p{
 							font-size: .9rem;
 						}

@@ -11,20 +11,23 @@ export const NavLink = ({ pathName,  headerVals, finalClass,finalNavClass, direc
   const linkRef = useRef(null);
 
 
-  const triggerClick = () => {
-    headerVals.setSimulateClick(false)
-    linkRef.current.children[0].click()
-  }
+  
   
 
   useEffect(() => {
+    const triggerClick = () => {
+      headerVals.setSimulateClick(false)
+      linkRef.current.children[0].click()
+    }
+   
+
     if (headerVals.simulateClick) {
       if (headerVals.simulateTarget === pathName) {
         triggerClick()
       }
     }
   
-  }, [headerVals]);
+  }, [headerVals, pathName]);
   
   return (
     <li  ref={linkRef}  className={finalClass} >

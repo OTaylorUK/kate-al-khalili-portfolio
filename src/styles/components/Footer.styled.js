@@ -9,7 +9,7 @@ export const StyledFooter = styled.footer`
 	width: 100%;
 	${Flex({justify:"space-between"})};
 
-	padding: 3vh 6vw;
+	padding: 1vh 6vw;
 	z-index: 9999999;
 	.slide-btn{
 
@@ -130,6 +130,8 @@ export const StyledFooter = styled.footer`
 		
 	}
 	@media ${mediaQuery({})}{ 
+		padding: 3vh 6vw;
+
 		.slider-wrapper{
 			${FlexItem({ shrink: "0", base: "50%", })};
 			${Flex({ align: "center" })};

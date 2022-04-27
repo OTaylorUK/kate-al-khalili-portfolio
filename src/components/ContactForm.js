@@ -146,7 +146,7 @@ export const ContactForm = () => {
 				  return (
 					<>
 						{displayError(formErrors)}
-						<Form  className="contact-form">
+						<Form  className="contact-form" data-netlify="true">
 							<div className={`field-group ${errorClass('from_name',props)}`}>
 								<label htmlFor="from_name">Name</label>
 								<Field id="from_name" name="from_name" placeholder="Your name" />
@@ -180,13 +180,13 @@ export const ContactForm = () => {
 							<div className={`field-group full ${errorClass('gdpr',props)}`}>
 
 								<div className='label' >GDPR</div>
-								<label className="field-wrapper gdpr" htmlFor="gdpr">
+								<label className={`${props.values.gdpr ? 'is-active': ''} field-wrapper gdpr`}htmlFor="gdpr">
 									<Field
 										id="gdpr"
 										name="gdpr"
 										type="checkbox"
 									/>
-									<div className="styled-input">{outputCheckbox(props.values.gdpr)}</div>
+									<div className={` styled-input`}>{outputCheckbox(props.values.gdpr)}</div>
 									<div className='label' >I agree to the data entered in this form to be stored and used by the owner of this website.</div>
 								</label>
 								

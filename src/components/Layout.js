@@ -159,11 +159,6 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
     if (!isDragging) return false;
 
 
-    const scrollYMin = scrollStartY.current - 10;
-    const scrollYMax = scrollStartY.current + 10;
-
-   
-
     let moveDir = 'no-move';
     let moveToSlideNumber;
     let nearestSlide;
@@ -267,11 +262,6 @@ export const Layout = ({ isHomepage, children, body, pageName, nicePageName }) =
   }
 
   const mobileScrolled = ({event, position}) => {
-    let movingForward = false;
-    // let difference = scrollStart.current - event.touches[0].pageY
-    let nearestSlide = null;
-    let  moveToSlideNumber
-
 
     if (isScrolling) {
       setIsDragging(true);

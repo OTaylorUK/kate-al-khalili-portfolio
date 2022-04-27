@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { StyledHeader } from "../styles/components/Header.styled";
 import { useState,useEffect,useMemo } from 'react'
 import { NavLink } from './NavLink';

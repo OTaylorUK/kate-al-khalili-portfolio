@@ -31,12 +31,11 @@ export const Slider = ({ position, context, icon}) => {
     context.updateSlide(newNum)
   }
 
-  let btnText = 'Next';
+  // let btnText = 'Next';
 
-
-  if (context.currentSlide === context.sliderCount) {
-    btnText = 'Reset'
-  }
+  // if (context.currentSlide === context.sliderCount) {
+  //   btnText = 'Reset'
+  // }
 
   return (
     <>

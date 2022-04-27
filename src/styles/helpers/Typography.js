@@ -4,28 +4,28 @@ import { mediaQuery } from '../helpers/MediaQuery';
 
 const fontSizes = {
 	h1: {
-		mobile: '1.6rem',
+		mobile: '1.2rem',
 		laptop: '2rem',
 	},
 	h2: {
-		mobile: '1rem',
+		mobile: '.9rem',
 		laptop: '1.3rem'
 	},
 	h3: {
-		mobile: '1rem',
+		mobile: '.9rem',
 		laptop: '1.1rem'
 	},
 	h4: {
-		mobile: '.7rem',
+		mobile: '.9rem',
 		laptop: '.9rem'
 	},
 	h5: {
-		mobile: '.7rem',
-		laptop: '.7rem'
+		mobile: '.8rem',
+		laptop: '.8rem',
 	},
 	h6: {
-		mobile: '.65rem',
-		laptop: '.65rem'
+		mobile: '.8rem',
+		laptop: '.8rem',
 	},
 	
 }
